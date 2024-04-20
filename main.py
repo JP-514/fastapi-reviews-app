@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import numpy as np
 from DataModel import DataModel
@@ -84,6 +85,12 @@ def spacy_full(reviews_list):
     return final_reviews
 
 app = FastAPI()
+
+app.add_middleware(CORSMiddleware,
+                   allow_origins=["*"],
+                   allow_credentials=True,
+                   allow_methods=["*"],
+                   allow_headers=["*"])
 
 @app.get("/")
 def read_root():
